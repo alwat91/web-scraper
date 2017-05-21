@@ -8,15 +8,20 @@ def parse_uris
   sitemap = Nokogiri::XML(File.open("sitemap.xml"))
   uris = sitemap.css("loc")
 
-  CSV.open('data.csv', 'wb', :write_headers=> true, :headers => ["mcr_uri"]) do |file|
+  CSV.open('urls.csv', 'wb', :write_headers=> true, :headers => ["mcr_uri"]) do |file|
     uris.each do |uri|
       file << [uri.to_s[5..-7]]
     end
   end
 end
 
-def get_content(address)
-  Nokogiri::HTML(open(address))
+def get_content
+  CSV.foreach('urls.csv', headers:true) do |uri|
+    # puts Nokogiri::HTML(open(address))
+    sleep_time = rand(30..60)
+    puts sleep_time
+    sleep(sleep_time)
+  end
 end
 
 def parse_content(content)
@@ -55,16 +60,24 @@ def parse_content(content)
   # License info (full table)
   company["license_info"] = content.css("#license_table").to_s
 
-  puts company
+  company
 end
 
 def open_file(file)
   File.open(file) { |f| Nokogiri::XML(f) }
 end
 
+def build_file(content)
+  CSV.open('data.csv', 'wb', :write_headers=> true, :headers => ["name","website","phone","address_1","city","state","zip","has_in_state","has_out_state","has_full_service","has_moving_labor","has_packing_services","has_containers","has_agent","has_art_antiques","has_auto_transport","has_broker","has_carrier_broker","has_commercial_moves","has_corporate_reloc","has_govt","has_industrial_movers","has_dod_cert","has_pianos","has_safes","mover_details","license_info"]) do |file|
+    file << content.values
+  end
+end
+
+get_content
 # content = get_content('http://www.movingcompanyreviews.com/AL/Birmingham/a-wise-move-inc-57486')
-content = open_file("sample1.html")
-parse_content(content)
+# content = open_file("sample1.html")
+# parsed_content = parse_content(content)
+# build_file(parsed_content)
 # content = open_file("sample2.html")
 # parse_content(content)
 # content = open_file("sample3.html")
