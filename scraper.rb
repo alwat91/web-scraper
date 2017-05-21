@@ -21,18 +21,14 @@ end
 
 def parse_content(content)
   company = Hash.new
-  # company["name"] = content.at_css("[itemprop=name]").to_s[22..-8]
+  # contact
   company["name"] = content.at_css("[itemprop=name]").text
   company["website"] = content.at_css("[itemprop=url]").text
-  # company["website"] = content.at_css("[itemprop=url]").to_s[60..-5]
-  # company["address_1"] = content.at_css("[itemprop=streetAddress]").to_s[31..-8]
   company["phone"] = content.css("[itemprop=telephone] span")[0].text
-
   company["address_1"] = content.at_css("[itemprop=streetAddress]").text
   company["city"] = content.at_css("[itemprop=addressLocality]").text
   company["state"] = content.at_css("[itemprop=addressRegion]").text
   company["zip"] = content.at_css("[itemprop=postalCode]").text
-
 
   puts company["zip"]
 end
