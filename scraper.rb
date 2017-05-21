@@ -50,6 +50,10 @@ def parse_content(content)
   company["has_dod_cert"] = company_services.include?("Military/DOD Certified")
   company["has_pianos"] = company_services.include?("Pianos")
   company["has_safes"] = company_services.include?("Safes")
+  # Mover details (full table)
+  company["mover_details"] = content.css("#mover_details_info").to_s
+  # License info (full table)
+  company["license_info"] = content.css("#license_table").to_s
 
   puts company
 end
