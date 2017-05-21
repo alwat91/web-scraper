@@ -1,5 +1,8 @@
 require 'nokogiri'
 require 'csv'
+require 'net/http'
+require 'open-uri'
+
 
 def parse_uris
   sitemap = Nokogiri::XML(File.open("sitemap.xml"))
@@ -12,4 +15,20 @@ def parse_uris
   end
 end
 
-parse_uris
+def get_content(address)
+  Nokogiri::HTML(open(address))
+end
+
+def parse_content(content)
+  address_1 = content.at_css("[itemprop=streetAddress]").to_s[31..-8]
+  puts address_1
+
+end
+
+def open_file(file)
+  File.open(file) { |f| Nokogiri::XML(f) }
+end
+
+# content = get_content('http://www.movingcompanyreviews.com/AL/Birmingham/a-wise-move-inc-57486')
+content = open_file("sample1.html")
+parse_content(content)
