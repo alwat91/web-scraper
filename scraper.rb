@@ -20,8 +20,11 @@ def get_content(address)
 end
 
 def parse_content(content)
+  name = content.at_css("[itemprop=name]").to_s[22..-8]
+  puts name
+
   address_1 = content.at_css("[itemprop=streetAddress]").to_s[31..-8]
-  puts address_1
+
 
 end
 
@@ -31,4 +34,12 @@ end
 
 # content = get_content('http://www.movingcompanyreviews.com/AL/Birmingham/a-wise-move-inc-57486')
 content = open_file("sample1.html")
+parse_content(content)
+content = open_file("sample2.html")
+parse_content(content)
+content = open_file("sample3.html")
+parse_content(content)
+content = open_file("sample4.html")
+parse_content(content)
+content = open_file("sample5.html")
 parse_content(content)
