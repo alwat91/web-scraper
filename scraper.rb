@@ -29,8 +29,12 @@ def parse_content(content)
   company["phone"] = content.css("[itemprop=telephone] span")[0].text
 
   company["address_1"] = content.at_css("[itemprop=streetAddress]").text
+  company["city"] = content.at_css("[itemprop=addressLocality]").text
+  company["state"] = content.at_css("[itemprop=addressRegion]").text
+  company["zip"] = content.at_css("[itemprop=postalCode]").text
 
-  puts company["phone"]
+
+  puts company["zip"]
 end
 
 def open_file(file)
