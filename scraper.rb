@@ -20,12 +20,17 @@ def get_content(address)
 end
 
 def parse_content(content)
-  name = content.at_css("[itemprop=name]").to_s[22..-8]
-  puts name
+  company = Hash.new
+  # company["name"] = content.at_css("[itemprop=name]").to_s[22..-8]
+  company["name"] = content.at_css("[itemprop=name]").text
+  company["website"] = content.at_css("[itemprop=url]").text
+  # company["website"] = content.at_css("[itemprop=url]").to_s[60..-5]
+  # company["address_1"] = content.at_css("[itemprop=streetAddress]").to_s[31..-8]
+  company["phone"] = content.css("[itemprop=telephone] span")[0].text
 
-  address_1 = content.at_css("[itemprop=streetAddress]").to_s[31..-8]
+  company["address_1"] = content.at_css("[itemprop=streetAddress]").text
 
-
+  puts company["phone"]
 end
 
 def open_file(file)
