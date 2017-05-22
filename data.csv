@@ -1,31 +1,23 @@
 name,website,phone,address_1,city,state,zip,has_in_state,has_out_state,has_full_service,has_moving_labor,has_packing_services,has_containers,has_agent,has_art_antiques,has_auto_transport,has_broker,has_carrier_broker,has_commercial_moves,has_corporate_reloc,has_govt,has_industrial_movers,has_dod_cert,has_pianos,has_safes,mover_details,license_info
-"A Wise Move, Inc.",awisemoveinc.com/,205-276-4416,"4500 5Th Ave S., Bldg D",Birmingham,AL,35222,true,true,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,"<table id=""mover_details_info"" class=""table table-striped"">
+Alliance Professional Moving and Storage ,www.allianceprofessionalmoving.com,602-276-5000,115 E. Pioneer st,Pheonix,AZ,85040,true,true,true,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,"<table id=""mover_details_info"" class=""table table-striped"">
             <tr>
               <td>Number of Trucks</td>
-              <td>6</td>
+              <td>0</td>
             </tr>
+          <tr id=""business_type"">
+            <td>Business Type</td>
+            <td>
+              <span>Agent for <strong>Arpin Van Lines</strong></span>
+            </td>
+          </tr>
         </table>","<table id=""license_table"" class=""table table-striped"">
         <tr id=""usdot_row"">
           <td>USDOT#</td>
           <td>Required</td>
-          <td id=""usdot_license_number"">1529084</td>
-          <td/>
-          <td><a href=""http://ai.fmcsa.dot.gov/hhg/SearchResults.asp?CNS=1&amp;CN=&amp;search=1&amp;DOT=1529084&amp;MC=&amp;Submit=Search"" target=""_blank"">Federal Complaint History </a></td>
+          <td id=""usdot_license_number"">1648051 (Arpin Van Lines 49922)</td>
+          <td>&nbsp;</td>
+          <td><a href=""http://ai.fmcsa.dot.gov/hhg/SearchResults.asp?CNS=1&amp;CN=&amp;search=1&amp;DOT=49922&amp;MC=&amp;Submit=Search"" target=""_blank"">Federal Complaint History &gt;</a></td>
         </tr>
 
-          <tr id=""state_license_row"">
-            <td>AL license (APSC #)</td>
-            <td>Required</td>
-            <td>F3259</td>
-            <td/>
-            <td/>
-          </tr>
 
-          <tr id=""state_association_row"">
-            <td>Alabama Trucking Association (ATA)</td>
-            <td>Recommended</td>
-            <td>Not Found</td>
-            <td/>
-            <td><a href=""http://www.alabamatrucking.org/"" target=""_blank"">Verify here </a></td>
-          </tr>
       </table>"

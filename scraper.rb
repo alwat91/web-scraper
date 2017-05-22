@@ -16,10 +16,10 @@ def parse_uris
 end
 
 def get_content
-  CSV.foreach('urls.csv', headers:true) do |uri|
-    # puts Nokogiri::HTML(open(address))
+  CSV.foreach('urls.csv') do |uri|
+    content = Nokogiri::HTML(open(uri[0], "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36"))
+    build_file(parse_content(content))
     sleep_time = rand(30..60)
-    puts sleep_time
     sleep(sleep_time)
   end
 end
@@ -59,7 +59,7 @@ def parse_content(content)
   company["mover_details"] = content.css("#mover_details_info").to_s
   # License info (full table)
   company["license_info"] = content.css("#license_table").to_s
-
+  puts company
   company
 end
 
