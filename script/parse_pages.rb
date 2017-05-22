@@ -65,8 +65,61 @@ def parse_content(content)
   company["has_dod_cert"] = company_services.include?("Military/DOD Certified")
   company["has_pianos"] = company_services.include?("Pianos")
   company["has_safes"] = company_services.include?("Safes")
-  # Mover details (full table)
-  company["mover_details"] = content.css("#mover_details_info").to_s
+  # Mover details
+  mover_details = content.css("#mover_details_info").css("tr")
+
+  mover_details.each do |row|
+     name = row.css("td:first-child").text
+     quantity = row.css("td:nth-child(2)").text
+
+     if name.include?("Trucks")
+       company["num_trucks"] = quantity
+     else
+       company["num_trucks"] = ""
+     end
+
+     if name.include?("Warehouse Size")
+       company["warehouse_size"] = quantity
+     else
+       company["warehouse_size"] = ""
+     end
+
+     if name.include?("Business Type")
+       company["business_type"] = quantity
+     else
+       company["business_type"] = ""
+     end
+
+     if name.include?("In Business Since")
+       company["since"] = quantity
+     else
+       company["since"] = ""
+     end
+
+     if name.include?("Better Business Bureau")
+       puts company["name"]
+       company["bbb_link"] = "http://www.bbb.org#{row.css("td:nth-child(2)").to_s.scan(URI.regexp)[0][6]}"
+       puts company["bbb_link"]
+     else
+       company["bbb_link"] = ""
+     end
+  end
+  # if mover_details.to_s.include?("Trucks")
+  #   company["num_trucks"] = mover_details.css("tr:first-child td:nth-child(2)").text
+  # else
+  #   company["num_trucks"] = ""
+  # end
+  #
+  # if mover_details.to_s.include?("Warehouse Size")
+  #   puts mover_details.css("tr:nth-child(2) td:nth-child(2)").text
+  # end
+  # content.css("#mover_details_info").css("tr td").each_with_index do |el, i|
+  #   if el.text == "Number of Trucks"
+  #     puts content.css("#mover_details_info")
+  #   end
+  # end
+  # # Mover details (full table)
+  # company["mover_details"] = content.css("#mover_details_info").to_s
   # License info (full table)
   company["license_info"] = content.css("#license_table").to_s
 
