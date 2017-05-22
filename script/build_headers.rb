@@ -34,6 +34,6 @@ Dir.foreach('../pages') do |file|
   check_license(content)
 end
 
-CSV.open('../data/result.csv', 'w') do |file|
+CSV.open('../data/headers.csv', 'w') do |file|
   file << @headers
 end
