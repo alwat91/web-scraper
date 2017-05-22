@@ -52,5 +52,5 @@ end
 
 Dir.foreach('../pages') do |file|
   next if file == '.' or file == '..'
-  puts File.open("../pages/#{file}")
+  puts open_file("../pages/#{file}")
 end
