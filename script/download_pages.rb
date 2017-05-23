@@ -3,7 +3,7 @@ require 'csv'
 
 def get_content
   CSV.foreach('../data/urls.csv') do |uri|
-    if $. < 520
+    if $. < 7650
       next
     end
 

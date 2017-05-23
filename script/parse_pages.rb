@@ -97,9 +97,7 @@ def parse_content(content)
      end
 
      if name.include?("Better Business Bureau")
-       puts company["name"]
        company["bbb_link"] = "http://www.bbb.org#{row.css("td:nth-child(2)").to_s.scan(URI.regexp)[0][6]}"
-       puts company["bbb_link"]
      else
        company["bbb_link"] = ""
      end
@@ -118,10 +116,35 @@ def parse_content(content)
   #     puts content.css("#mover_details_info")
   #   end
   # end
+  license_info = content.css("#license_table").css("tr")
+
+  license_info.each do |row|
+    info = row.css("td:nth-child(3)").text
+
+    if row.to_s.include?("usdot_row")
+      company["dot_info"] = info
+    else
+      company["dot_info"] = ""
+    end
+
+    if row.to_s.include?("state_license_row")
+      company["state_license_info"] = info
+    else
+      company["state_license_info"] = ""
+    end
+
+    if row.to_s.include?("state_association_row")
+      company["state_assoc_info"] = info
+    else
+      company["state_assoc_info"] = ""
+    end
+  end
+
+
   # # Mover details (full table)
   # company["mover_details"] = content.css("#mover_details_info").to_s
   # License info (full table)
-  company["license_info"] = content.css("#license_table").to_s
+  # company["license_info"] = content.css("#license_table").to_s
 
   company
 end
