@@ -102,20 +102,7 @@ def parse_content(content)
        company["bbb_link"] = ""
      end
   end
-  # if mover_details.to_s.include?("Trucks")
-  #   company["num_trucks"] = mover_details.css("tr:first-child td:nth-child(2)").text
-  # else
-  #   company["num_trucks"] = ""
-  # end
-  #
-  # if mover_details.to_s.include?("Warehouse Size")
-  #   puts mover_details.css("tr:nth-child(2) td:nth-child(2)").text
-  # end
-  # content.css("#mover_details_info").css("tr td").each_with_index do |el, i|
-  #   if el.text == "Number of Trucks"
-  #     puts content.css("#mover_details_info")
-  #   end
-  # end
+  
   license_info = content.css("#license_table").css("tr")
 
   license_info.each do |row|
