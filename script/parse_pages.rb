@@ -102,7 +102,7 @@ def parse_content(content)
        company["bbb_link"] = ""
      end
   end
-  
+
   license_info = content.css("#license_table").css("tr")
 
   license_info.each do |row|
@@ -147,14 +147,30 @@ def build_file(content)
 
   if !dupe
     CSV.open('../data/result.csv', 'a+') do |file|
-      file << content.values
+      values = Array.new
+      @keys.each do |key|
+        values << content[key]
+      end
+      file << values
     end
   end
+end
+
+def double_check(company)
+  @keys = ["name","website","phone","address_1","city","state","zip","has_in_state","has_out_state","has_full_service","has_moving_labor","has_packing_services","has_containers","has_agent","has_art_antiques","has_auto_transport","has_broker","has_carrier_broker","has_commercial_moves","has_corporate_reloc","has_govt","has_industrial_movers","has_dod_cert","has_pianos","has_safes","num_trucks","warehouse_size","business_type","since","bbb_link","dot_info","state_license_info","state_assoc_info"]
+
+  @keys.each do |key|
+    if company[key] == nil
+      company[key] == ""
+    end
+  end
+  company
 end
 
 Dir.foreach('../pages') do |file|
   next if file == '.' or file == '..'
   content = open_file("../pages/#{file}")
   content = parse_content(content)
+  content = double_check(content)
   build_file(content)
 end
