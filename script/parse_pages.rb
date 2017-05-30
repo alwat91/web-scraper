@@ -105,6 +105,8 @@ def parse_content(content)
 
   license_info = content.css("#license_table").css("tr")
 
+  license_info = content.css("#license_info").css("tr") if license_info == nil
+
   license_info.each do |row|
     info = row.css("td:nth-child(3)").text
 
@@ -167,9 +169,16 @@ def double_check(company)
   company
 end
 
+def georgia?(content)
+  content.at_css("[itemprop=addressRegion]") != nil and content.at_css("[itemprop=addressRegion]").text.include?("GA")
+end
+
+File.open('../data/result.csv', 'w') {|file| file.truncate(1) }
+
 Dir.foreach('../pages') do |file|
   next if file == '.' or file == '..'
   content = open_file("../pages/#{file}")
+  next if !georgia?(content)
   content = parse_content(content)
   content = double_check(content)
   build_file(content)
