@@ -12,7 +12,4 @@ Dir.foreach('../pages') do |file|
   next if file == '.' or file == '..'
   content = open_file("../pages/#{file}")
   puts content.css("[itemprop=postOfficeBoxNumber]")
-  # if content.css("[itemprop=address]") != nil
-  #   puts content.css("[itemprop=address]")
-  # end
 end
