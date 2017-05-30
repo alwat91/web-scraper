@@ -82,28 +82,11 @@ def parse_content(content)
 
   license_info = content.css("#license_table").css("tr")
 
-  license_info = content.css("#license_info").css("tr") if license_info == nil
-
   license_info.each do |row|
     info = row.css("td:nth-child(3)").text
-
-    if row.to_s.include?("usdot_row")
-      company["dot_info"] = info
-    else
-      company["dot_info"] = ""
-    end
-
-    if row.to_s.include?("state_license_row")
-      company["state_license_info"] = info
-    else
-      company["state_license_info"] = ""
-    end
-
-    if row.to_s.include?("state_association_row")
-      company["state_assoc_info"] = info
-    else
-      company["state_assoc_info"] = ""
-    end
+    company["dot_info"] = info if row.to_s.include?("usdot_row") and (info != "Not Found" and info != "No")
+    company["state_license_info"] = info if row.to_s.include?("state_license_row") and (info != "Not Found" and info != "No")
+    company["state_assoc_info"] = info if row.to_s.include?("state_association_row") and (info != "Not Found" and info != "No")
   end
 
   company
@@ -131,7 +114,7 @@ end
 
 def double_check(company)
   @keys = ["name","website","phone","address_1","city","state","zip","has_in_state","has_out_state","has_full_service","has_moving_labor","has_packing_services","has_containers","has_agent","has_art_antiques","has_auto_transport","has_broker","has_carrier_broker","has_commercial_moves","has_corporate_reloc","has_govt","has_industrial_movers","has_dod_cert","has_pianos","has_safes","num_trucks","warehouse_size","business_type","since","bbb_link","dot_info","state_license_info","state_assoc_info"]
-  
+
   @keys.each do |key|
     if company[key] == nil
       company[key] == ""
