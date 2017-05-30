@@ -1,3 +1,7 @@
+require 'nokogiri'
+require 'csv'
+require 'uri'
+require 'pry'
 
 def open_file(path)
   Nokogiri::XML(File.open(path))
@@ -69,35 +73,11 @@ def parse_content(content)
      name = row.css("td:first-child").text
      quantity = row.css("td:nth-child(2)").text
 
-     if name.include?("Trucks")
-       company["num_trucks"] = quantity
-     else
-       company["num_trucks"] = ""
-     end
-
-     if name.include?("Warehouse Size")
-       company["warehouse_size"] = quantity
-     else
-       company["warehouse_size"] = ""
-     end
-
-     if name.include?("Business Type")
-       company["business_type"] = quantity
-     else
-       company["business_type"] = ""
-     end
-
-     if name.include?("In Business Since")
-       company["since"] = quantity
-     else
-       company["since"] = ""
-     end
-
-     if name.include?("Better Business Bureau")
-       company["bbb_link"] = "http://www.bbb.org#{row.css("td:nth-child(2)").to_s.scan(URI.regexp)[0][6]}"
-     else
-       company["bbb_link"] = ""
-     end
+    company["num_trucks"] = quantity if name.include?("Trucks")
+    company["warehouse_size"] = quantity if name.include?("Warehouse Size")
+    company["business_type"] = quantity if name.include?("Business Type")
+    company["since"] = quantity if name.include?("In Business Since")
+    company["bbb_link"] = "http://www.bbb.org#{row.css("td:nth-child(2)").to_s.scan(URI.regexp)[0][6]}" if name.include?("Better Business Bureau")
   end
 
   license_info = content.css("#license_table").css("tr")
@@ -126,12 +106,6 @@ def parse_content(content)
     end
   end
 
-
-  # # Mover details (full table)
-  # company["mover_details"] = content.css("#mover_details_info").to_s
-  # License info (full table)
-  # company["license_info"] = content.css("#license_table").to_s
-
   company
 end
 
@@ -157,7 +131,7 @@ end
 
 def double_check(company)
   @keys = ["name","website","phone","address_1","city","state","zip","has_in_state","has_out_state","has_full_service","has_moving_labor","has_packing_services","has_containers","has_agent","has_art_antiques","has_auto_transport","has_broker","has_carrier_broker","has_commercial_moves","has_corporate_reloc","has_govt","has_industrial_movers","has_dod_cert","has_pianos","has_safes","num_trucks","warehouse_size","business_type","since","bbb_link","dot_info","state_license_info","state_assoc_info"]
-
+  
   @keys.each do |key|
     if company[key] == nil
       company[key] == ""

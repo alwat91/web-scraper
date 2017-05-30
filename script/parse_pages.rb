@@ -1,6 +1,3 @@
-require 'nokogiri'
-require 'csv'
-require 'uri'
 require './helper_methods.rb'
 
 File.open('../data/result.csv', 'w') {|file| file.truncate(1) }
