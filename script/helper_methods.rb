@@ -15,6 +15,7 @@ def parse_content(content)
   else
     company["name"] = content.at_css("[itemprop=name]").text
   end
+
   if content.at_css("[itemprop=url]") == nil
     company["website"] = ""
   else
@@ -118,7 +119,11 @@ def double_check(company)
   @keys.each do |key|
     if company[key] == nil
       company[key] == ""
+    elsif company[key].is_a? String and company[key].include?(",")
+      company[key].gsub!(",", "")
     end
+
+
   end
   company
 end
