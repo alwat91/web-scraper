@@ -87,7 +87,8 @@ def parse_content(content)
     info = row.css("td:nth-child(3)").text
     company["dot_info"] = info if row.to_s.include?("usdot_row") and (info != "Not Found" and info != "No")
     company["state_license_info"] = info if row.to_s.include?("state_license_row") and (info != "Not Found" and info != "No")
-    company["state_assoc_info"] = info if row.to_s.include?("state_association_row") and (info != "Not Found" and info != "No")
+    company["state_assoc_info"] = info if row.to_s.include?("state_association_row")
+    # and (info != "Not Found" and info != "No")
   end
 
   company
